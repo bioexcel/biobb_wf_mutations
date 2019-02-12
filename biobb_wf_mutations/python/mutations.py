@@ -94,7 +94,7 @@ def main(config, system=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Based on the official Gromacs tutorial")
-    parser.add_argument('--config', required=True)
+    parser.add_argument('--config', required=False)
     parser.add_argument('--system', required=False)
     args = parser.parse_args()
     main(args.config, args.system)

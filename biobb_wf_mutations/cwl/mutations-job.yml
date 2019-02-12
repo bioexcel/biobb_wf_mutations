@@ -1,0 +1,8 @@
+step1_mmbpdb_config: "{\"pdb_code\" : \"1aki\"}"
+step3_mutate_config: "{\"mutation_list\" : \"A:Val2Ala\"}"
+step7_grompp_genion_config: "{\"mdp\": {\"type\":\"minimization\", \"nsteps\":\"500\"}}"
+step8_genion_config: "{\"neutral\": \"True\", \"concentration\": 0.05}"
+step9_grompp_min_config: "{\"mdp\": {\"type\":\"minimization\", \"nsteps\":\"500\", \"emtol\":\"500\"}}"
+step11_grompp_nvt_config: "{\"mdp\": {\"type\":\"nvt\", \"nsteps\":\"500\"}}"
+step13_grompp_npt_config: "{\"mdp\": {\"type\":\"npt\", \"nsteps\":\"500\"}}"
+step15_grompp_md_config: "{\"mdp\": {\"type\":\"free\", \"nsteps\":\"5000\"}}"
