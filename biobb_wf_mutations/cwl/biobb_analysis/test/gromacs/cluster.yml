@@ -1,0 +1,7 @@
+input_gro_path:
+    class: File
+    location: ../data/gromacs/cluster.gro
+input_traj_path:
+    class: File
+    location: ../data/gromacs/cluster.trr
+output_pdb_path: cluster.pdb

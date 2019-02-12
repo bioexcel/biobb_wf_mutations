@@ -1,0 +1,8 @@
+input_top_path:
+    class: File
+    location: ../data/ambertools/cpptraj.parm7
+input_traj_path:
+    class: File
+    location: ../data/ambertools/cpptraj.nc
+output_dat_path: rms.dat
+config: "{\"input_instructions\" : {\"analysis\" :\"rms\", \"rms\" : \"ToFirst @N,CA,C\"} }"
