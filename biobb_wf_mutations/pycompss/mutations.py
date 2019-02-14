@@ -25,8 +25,12 @@ def main(config, system=None):
     global_prop = conf.get_prop_dic(global_log=global_log)
     global_paths = conf.get_paths_dic()
 
-    global_log.info("step1_mmbpdb: Dowload the initial Structure")
-    pdb_pc(**global_paths["step1_mmbpdb"], properties=global_prop["step1_mmbpdb"]).launch()
+    initial_structure = global_paths.get('initial_structure')
+    if initial_structure:
+        global_paths["step2_fixsidechain"]['input_pdb_path'] = initial_structure
+    else:
+        global_log.info("step1_mmbpdb: Dowload the initial Structure")
+        pdb_pc(**global_paths["step1_mmbpdb"], properties=global_prop["step1_mmbpdb"]).launch()
 
     global_log.info("step2_fixsidechain: Modeling the missing heavy atoms in the structure side chains")
     fix_side_chain_pc(**global_paths["step2_fixsidechain"], properties=global_prop["step2_fixsidechain"]).launch()

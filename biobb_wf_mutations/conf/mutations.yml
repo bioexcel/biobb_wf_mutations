@@ -1,9 +1,12 @@
 working_dir_path: wf_mutations
-can_write_console_log: False
+can_write_console_log: True
 
-#mutations: ['Val2Tyr', 'Val2Ala']
 
-mutations: ['Val2Tyr']
+mutations: ['A:Val2Tyr', 'A:Val2Ala']
+
+#mutations: ['Val2Tyr']
+
+#initial_structure: 1aki.pdb
 
 step1_mmbpdb:
   paths:
