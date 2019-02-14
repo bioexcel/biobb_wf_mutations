@@ -22,7 +22,7 @@ def main(config, system=None):
     global_prop = conf.get_prop_dic(global_log=global_log)
     global_paths = conf.get_paths_dic()
 
-    initial_structure = global_paths.get('initial_structure')
+    initial_structure = conf.properties.get('initial_structure')
     if initial_structure:
         global_paths["step2_fixsidechain"]['input_pdb_path'] = initial_structure
     else:
