@@ -5,17 +5,17 @@ import time
 import argparse
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
-from biobb_adapters.biobb_io.pycompss.mmb_api.pdb_pc import pdb_pc
-from biobb_adapters.biobb_model.pycompss.model.fix_side_chain_pc import fix_side_chain_pc
-from biobb_adapters.biobb_model.pycompss.model.mutate_pc import mutate_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.pdb2gmx_pc import pdb2gmx_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.editconf_pc import editconf_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.solvate_pc import solvate_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.grompp_pc import grompp_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.grompp_cpt_pc import grompp_cpt_pc
-from biobb_adapters.biobb_md.pycompss.gromacs.genion_pc import genion_pc
-#from biobb_adapters.biobb_md.pycompss.gromacs.mdrun_cpt_pc import mdrun_cpt_pc
-#from biobb_adapters.biobb_md.pycompss.gromacs.mdrun_pc import mdrun_pc
+from biobb_adapters.pycompss.biobb_io.mmb_api.pdb_pc import pdb_pc
+from biobb_adapters.pycompss.biobb_model.model.fix_side_chain_pc import fix_side_chain_pc
+from biobb_adapters.pycompss.biobb_model.model.mutate_pc import mutate_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.pdb2gmx_pc import pdb2gmx_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.editconf_pc import editconf_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.solvate_pc import solvate_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.grompp_pc import grompp_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.grompp_cpt_pc import grompp_cpt_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.genion_pc import genion_pc
+#from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_cpt_pc import mdrun_cpt_pc
+#from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_pc import mdrun_pc
 
 def main(config, system=None):
     from pycompss.api.api import compss_barrier
