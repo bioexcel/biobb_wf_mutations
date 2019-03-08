@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_wf_mutations",
-    version="0.0.2",
+    version="0.0.3",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="Lysozyme + Mutations workflow built using BioBB Based on the official Gromacs tutorial: http://www.mdtutorials.com/gmx/lysozyme/01_pdb2gmx.html",
