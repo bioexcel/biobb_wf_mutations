@@ -14,8 +14,8 @@ from biobb_adapters.pycompss.biobb_md.gromacs.solvate_pc import solvate_pc
 from biobb_adapters.pycompss.biobb_md.gromacs.grompp_pc import grompp_pc
 from biobb_adapters.pycompss.biobb_md.gromacs.grompp_cpt_pc import grompp_cpt_pc
 from biobb_adapters.pycompss.biobb_md.gromacs.genion_pc import genion_pc
-#from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_cpt_pc import mdrun_cpt_pc
-#from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_pc import mdrun_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_cpt_pc import mdrun_cpt_pc
+from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_pc import mdrun_pc
 
 def main(config, system=None):
     from pycompss.api.api import compss_barrier
@@ -88,7 +88,7 @@ def main(config, system=None):
 
         pa=paths["step16_mdrun_md"]
         global_log.info("step16_mdrun_md: Execute free molecular dynamics simulation")
-        mdrun_pc_all(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        mdrun_pc_cpt(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
 
     compss_barrier()
     elapsed_time = time.time() - start_time
@@ -103,27 +103,27 @@ def main(config, system=None):
     global_log.info('Elapsed time: %.1f minutes' % (elapsed_time/60))
     global_log.info('')
 
-computing_units = "48"
-computing_nodes = 2
-
-@constraint(ComputingUnits=computing_units)
-@mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
-@task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_log_path=FILE_OUT)
-def mdrun_pc(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", g="-g",output_log_path=""):
-    pass
-
-@constraint(ComputingUnits=computing_units)
-@mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
-@task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_cpt_path=FILE_OUT, output_log_path=FILE_OUT)
-def mdrun_pc_cpt(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", cpo="-cpo",output_cpt_path="", g="-g",output_log_path=""):
-    pass
-
-
-@constraint(ComputingUnits=computing_units)
-@mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
-@task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_cpt_path=FILE_OUT, output_trr_path=FILE_OUT, output_xtc_path=FILE_OUT, output_edr_path=FILE_OUT, output_log_path=FILE_OUT)
-def mdrun_pc_all(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", cpo="-cpo",output_cpt_path="", g="-g",output_log_path=""):
-    pass
+# computing_units = "48"
+# computing_nodes = 2
+#
+# @constraint(ComputingUnits=computing_units)
+# @mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
+# @task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_log_path=FILE_OUT)
+# def mdrun_pc(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", g="-g",output_log_path=""):
+#     pass
+#
+# @constraint(ComputingUnits=computing_units)
+# @mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
+# @task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_cpt_path=FILE_OUT, output_log_path=FILE_OUT)
+# def mdrun_pc_cpt(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", cpo="-cpo",output_cpt_path="", g="-g",output_log_path=""):
+#     pass
+#
+#
+# @constraint(ComputingUnits=computing_units)
+# @mpi(runner="mpirun", binary="gmx_mpi", computingNodes=computing_nodes)
+# @task(input_tpr_path=FILE_IN, output_gro_path=FILE_OUT, output_cpt_path=FILE_OUT, output_trr_path=FILE_OUT, output_xtc_path=FILE_OUT, output_edr_path=FILE_OUT, output_log_path=FILE_OUT)
+# def mdrun_pc_all(mdrun="mdrun", s="-s",input_tpr_path="", c="-c",output_gro_path="", o="-o",output_trr_path="", x="-x",output_xtc_path="", e="-e", output_edr_path="", cpo="-cpo",output_cpt_path="", g="-g",output_log_path=""):
+#     pass
 
 
 if __name__ == '__main__':

@@ -1,10 +1,10 @@
 [![Documentation Status](https://readthedocs.org/projects/biobb-md/badge/?version=latest)](https://biobb-md.readthedocs.io/en/latest/?badge=latest)
 
 
-# biobb_md
+# biobb_wf_mutations
 
 ### Introduction
-Biobb_md is the Biobb module collection to perform molecular dynamics simulations.
+Lysozyme + Mutations workflow built using BioBB Based on the official Gromacs tutorial: http://www.mdtutorials.com/gmx/lysozyme/01_pdb2gmx.html
 Biobb (BioExcel building blocks) packages are Python building blocks that
 create new layer of compatibility and interoperability over popular
 bioinformatics tools.

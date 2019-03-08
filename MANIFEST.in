@@ -1,0 +1,3 @@
+include biobb_wf_mutations/notebooks/*.ipynb
+include biobb_wf_mutations/python/*.py
+include biobb_wf_mutations/pycompss/*.py

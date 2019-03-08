@@ -5,7 +5,7 @@ import time
 import argparse
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
-from biobb_io.mmb_api.pdb import MmbPdb
+from biobb_io.api.pdb import Pdb
 from biobb_model.model.fix_side_chain import FixSideChain
 from biobb_model.model.mutate import Mutate
 from biobb_md.gromacs.pdb2gmx import Pdb2gmx
@@ -27,7 +27,7 @@ def main(config, system=None):
         global_paths["step2_fixsidechain"]['input_pdb_path'] = initial_structure
     else:
         global_log.info("step1_mmbpdb: Dowload the initial Structure")
-        MmbPdb(**global_paths["step1_mmbpdb"], properties=global_prop["step1_mmbpdb"]).launch()
+        Pdb(**global_paths["step1_mmbpdb"], properties=global_prop["step1_mmbpdb"]).launch()
 
     global_log.info("step2_fixsidechain: Modeling the missing heavy atoms in the structure side chains")
     FixSideChain(**global_paths["step2_fixsidechain"], properties=global_prop["step2_fixsidechain"]).launch()
