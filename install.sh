@@ -13,5 +13,7 @@ $CONDA config --add channels conda-forge
 $CONDA install -y jupyter
 $CONDA install -y nglview -c conda-forge
 jupyter-nbextension enable nglview --py --sys-prefix
-
 $CONDA install -y biobb_wf_mutations
+mkdir -p $HOME/biobb_wf_mutations
+wget https://raw.githubusercontent.com/bioexcel/biobb_wf_mutations/master/biobb_wf_mutations/notebooks/mutations.ipynb -O $HOME/biobb_wf_mutations/mutations.ipynb
+jupyter-notebook $HOME/biobb_wf_mutations/mutations.ipynb
