@@ -11,7 +11,6 @@ $CONDA config --add channels bioconda
 $CONDA config --add channels conda-forge
 
 $CONDA install -y jupyter
-
 $CONDA install -y nglview -c conda-forge
 jupyter-nbextension enable nglview --py --sys-prefix
 
