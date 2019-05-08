@@ -1,12 +1,12 @@
 working_dir_path: wf_mutations
 can_write_console_log: True
-
+gmx_path: gmx_mpi
 
 mutations: ['A:Val2Tyr', 'A:Val2Ala']
 
 #mutations: ['Val2Tyr']
 
-#initial_structure: 1aki.pdb
+initial_structure: /home/bsc19/bsc19611/Bioexcel/1aki.pdb
 
 step1_mmbpdb:
   paths:
@@ -78,6 +78,7 @@ step10_mdrun_min:
     input_tpr_path: dependency/step9_grompp_min/output_tpr_path
     output_trr_path: min.trr
     output_gro_path: min.gro
+    output_xtc_path: min.xtc
     output_edr_path: min.edr
     output_log_path: min.log
 
@@ -96,6 +97,7 @@ step12_mdrun_nvt:
     input_tpr_path: dependency/step11_grompp_nvt/output_tpr_path
     output_trr_path: nvt.trr
     output_gro_path: nvt.gro
+    output_xtc_path: nvt.xtc
     output_edr_path: nvt.edr
     output_log_path: nvt.log
     output_cpt_path: nvt.cpt
@@ -116,6 +118,7 @@ step14_mdrun_npt:
     input_tpr_path: dependency/step13_grompp_npt/output_tpr_path
     output_trr_path: npt.trr
     output_gro_path: npt.gro
+    output_xtc_path: npt.xtc
     output_edr_path: npt.edr
     output_log_path: npt.log
     output_cpt_path: npt.cpt
@@ -136,6 +139,7 @@ step16_mdrun_md:
     input_tpr_path: dependency/step15_grompp_md/output_tpr_path
     output_trr_path: md.trr
     output_gro_path: md.gro
+    output_xtc_path: md.xtc
     output_edr_path: md.edr
     output_log_path: md.log
     output_cpt_path: md.cpt

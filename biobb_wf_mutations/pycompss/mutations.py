@@ -5,7 +5,7 @@ import time
 import argparse
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
-from biobb_adapters.pycompss.biobb_io.mmb_api.pdb_pc import pdb_pc
+from biobb_adapters.pycompss.biobb_io.api.pdb_pc import pdb_pc
 from biobb_adapters.pycompss.biobb_model.model.fix_side_chain_pc import fix_side_chain_pc
 from biobb_adapters.pycompss.biobb_model.model.mutate_pc import mutate_pc
 from biobb_adapters.pycompss.biobb_md.gromacs.pdb2gmx_pc import pdb2gmx_pc
@@ -20,9 +20,10 @@ from biobb_adapters.pycompss.biobb_md.gromacs.mdrun_pc import mdrun_pc
 def main(config, system=None):
     from pycompss.api.api import compss_barrier
     start_time = time.time()
+    #global conf
     conf = settings.ConfReader(config, system)
     global_log, _ = fu.get_logs(path=conf.get_working_dir_path(), light_format=True)
-    global_prop = conf.get_prop_dic(global_log=global_log)
+    global_prop = conf.get_prop_dic(global_log=None)
     global_paths = conf.get_paths_dic()
 
     initial_structure = conf.properties.get('initial_structure')
@@ -39,7 +40,7 @@ def main(config, system=None):
         global_log.info('')
         global_log.info("Mutation: %s  %d/%d" % (mutation, mutation_number+1, len(conf.properties['mutations'])))
         global_log.info('')
-        prop = conf.get_prop_dic(prefix=mutation, global_log=global_log)
+        prop = conf.get_prop_dic(prefix=mutation, global_log=None)
         paths = conf.get_paths_dic(prefix=mutation)
 
         global_log.info("step3_mutate Modeling mutation")
@@ -65,30 +66,34 @@ def main(config, system=None):
         global_log.info("step9_grompp_min: Preprocess energy minimization")
         grompp_pc(**paths["step9_grompp_min"], properties=prop["step9_grompp_min"])
 
-        pa=paths["step10_mdrun_min"]
+        ##pa=paths["step10_mdrun_min"]
         global_log.info("step10_mdrun_min: Execute energy minimization")
-        mdrun_pc(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        #mdrun_pc(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        mdrun_pc(**paths["step10_mdrun_min"], properties=prop["step10_mdrun_min"])
 
         global_log.info("step11_grompp_nvt: Preprocess system temperature equilibration")
         grompp_pc(**paths["step11_grompp_nvt"], properties=prop["step11_grompp_nvt"])
 
-        pa=paths["step12_mdrun_nvt"]
+        #pa=paths["step12_mdrun_nvt"]
         global_log.info("step12_mdrun_nvt: Execute system temperature equilibration")
-        mdrun_pc_cpt(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        #mdrun_cpti_pc(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        mdrun_cpt_pc(**paths["step12_mdrun_nvt"], properties=prop["step12_mdrun_nvt"])
 
         global_log.info("step13_grompp_npt: Preprocess system pressure equilibration")
         grompp_cpt_pc(**paths["step13_grompp_npt"], properties=prop["step13_grompp_npt"])
 
-        pa=paths["step14_mdrun_npt"]
+        #pa=paths["step14_mdrun_npt"]
         global_log.info("step14_mdrun_npt: Execute system pressure equilibration")
-        mdrun_pc_cpt(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        #mdrun_cpt_pt(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        mdrun_cpt_pc(**paths["step14_mdrun_npt"], properties=prop["step14_mdrun_npt"])
 
         global_log.info("step15_grompp_md: Preprocess free dynamics")
         grompp_cpt_pc(**paths["step15_grompp_md"], properties=prop["step15_grompp_md"])
 
-        pa=paths["step16_mdrun_md"]
+        #pa=paths["step16_mdrun_md"]
         global_log.info("step16_mdrun_md: Execute free molecular dynamics simulation")
-        mdrun_pc_cpt(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        #mdrun_cpt_pc(input_tpr_path=pa["input_tpr_path"], output_gro_path=pa["output_gro_path"], output_cpt_path=pa["output_cpt_path"], output_xtc_path=pa["output_xtc_path"], output_trr_path=pa["output_trr_path"], output_edr_path=pa["output_edr_path"], output_log_path=pa["output_log_path"])
+        mdrun_cpt_pc(**paths["step16_mdrun_md"], properties=prop["step16_mdrun_md"])
 
     compss_barrier()
     elapsed_time = time.time() - start_time
