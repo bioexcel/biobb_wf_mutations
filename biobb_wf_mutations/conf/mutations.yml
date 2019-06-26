@@ -1,10 +1,12 @@
 working_dir_path: wf_mutations
 can_write_console_log: True
-gmx_path: gmx_mpi
+pycompss:
+  mdrun:
+    computing_units: 48
+    computing_nodes: 2
 
 mutations: ['A:Val2Tyr', 'A:Val2Ala']
-
-#mutations: ['Val2Tyr']
+#mutations: ['A:Val2Tyr', 'ErrorMut']
 
 initial_structure: /home/bsc19/bsc19611/Bioexcel/1aki.pdb
 
@@ -81,6 +83,9 @@ step10_mdrun_min:
     output_xtc_path: min.xtc
     output_edr_path: min.edr
     output_log_path: min.log
+  properties:
+    gmx_path: gmx_mpi
+    mpi_bin: mpirun
 
 step11_grompp_nvt:
   paths:
@@ -122,6 +127,9 @@ step14_mdrun_npt:
     output_edr_path: npt.edr
     output_log_path: npt.log
     output_cpt_path: npt.cpt
+  properties:
+    gmx_path: gmx_mpi
+    mpi_bin: mpirun
 
 step15_grompp_md:
   paths:
@@ -143,3 +151,6 @@ step16_mdrun_md:
     output_edr_path: md.edr
     output_log_path: md.log
     output_cpt_path: md.cpt
+  properties:
+    gmx_path: gmx_mpi
+    mpi_bin: mpirun
